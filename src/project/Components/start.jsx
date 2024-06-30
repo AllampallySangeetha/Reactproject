@@ -1,20 +1,17 @@
-import { useRef } from "react";
 import React from "react";
 
 export default function Start({ setUsername }) {
-  const inputRef = useRef();
-
   const handleClick = () => {
-    inputRef.current.value && setUsername(inputRef.current.value);
+    const name = prompt("Please enter your name:");
+    if (name) {
+      setUsername(name);
+    } else {
+      alert('Please enter your name');
+    }
   };
 
   return (
     <div className="start">
-      <input
-        className="startInput"
-        placeholder="enter your name"
-        ref={inputRef}
-      />
       <button className="startButton" onClick={handleClick}>
         Start
       </button>

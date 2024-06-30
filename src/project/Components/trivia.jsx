@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import React from "react";
 
 export default function Trivia({
   data,
@@ -10,6 +9,7 @@ export default function Trivia({
   const [question, setQuestion] = useState(null);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [className, setClassName] = useState("answer");
+  const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
     setQuestion(data[questionNumber - 1]);
@@ -22,32 +22,47 @@ export default function Trivia({
   };
 
   const handleClick = (a) => {
-    setSelectedAnswer(a);
-    setClassName("answer active");
-    delay(3000, () => {
-      setClassName(a.correct ? "answer correct" : "answer wrong");
-    });
+    if (!selectedAnswer) {
+      setSelectedAnswer(a);
+      setClassName("answer active");
+      delay(2000, () => {
+        setClassName(a.correct ? "answer correct" : "answer wrong");
+      });
 
-    delay(5000, () => {
-      if (a.correct) {
-        delay(1000, () => {
-          setQuestionNumber((prev) => prev + 1);
-          setSelectedAnswer(null);
-        });
-      } else {
-        delay(1000, () => {
-          setTimeOut(true);
-        });
-      }
-    });
+      delay(3000, () => {
+        if (a.correct) {
+          delay(1000, () => {
+            setQuestionNumber((prev) => prev + 1);
+            setSelectedAnswer(null);
+            setDisabled(false); // Re-enable question click after correct answer
+          });
+        } else {
+          delay(1000, () => {
+            setTimeOut(true);
+          });
+        }
+      });
+    }
+  };
+
+  const handleQuestionClick = () => {
+    if (!disabled) {
+      setDisabled(true); // Disable question click
+    }
   };
 
   return (
     <div className="trivia">
-      <div className="question">{question?.question}</div>
+      <div
+        className={`question ${disabled ? "disabled" : ""}`}
+        onClick={handleQuestionClick}
+      >
+        {question?.question}
+      </div>
       <div className="answers">
         {question?.answers.map((a) => (
           <div
+            key={a.id}
             className={selectedAnswer === a ? className : "answer"}
             onClick={() => !selectedAnswer && handleClick(a)}
           >
@@ -55,6 +70,6 @@ export default function Trivia({
           </div>
         ))}
       </div>
-    </div>
-  );
+    </div>
+  );
 }

@@ -1,4 +1,3 @@
-
 import "./app.css";
 import { useEffect, useMemo, useState } from "react";
 import React from "react";
@@ -6,343 +5,354 @@ import Start from "./project/Components/start";
 import Timer from "./project/Components/timer";
 import Trivia from "./project/Components/trivia";
 
+// Utility function to shuffle an array
+const shuffleArray = (array) => {
+  let shuffledArray = array.slice();
+  for (let i = shuffledArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+  }
+  return shuffledArray;
+};
+
 function App() {
   const [username, setUsername] = useState(null);
   const [timeOut, setTimeOut] = useState(false);
   const [questionNumber, setQuestionNumber] = useState(1);
   const [earned, setEarned] = useState("$ 0");
 
-  const data = [
+  const data = useMemo(() => [
     {
       id: 1,
-      question: "Rolex is a company that specializes in what type of product?",
-      answers: [
+      question: "What is the difference between XML and HTML?",
+      answers: shuffleArray([
         {
-          text: "Phone",
+          text: "HTML is used for exchanging data, XML is not",
           correct: false,
         },
         {
-          text: "Watches",
+          text: "XML is used for exchanging data, HTML is not ",
           correct: true,
         },
         {
-          text: "Food",
+          text: "HTML can have user defined tags, XML cannot",
           correct: false,
         },
         {
-          text: "Cosmetic",
+          text: "None",
           correct: false,
         },
-      ],
+      ]),
     },
     {
       id: 2,
-      question: "When did the website Facebook launch?",
-      answers: [
+      question: "Who was the primary author of HTML?",
+      answers: shuffleArray([
         {
-          text: "2004",
+          text: "Brendan Eich",
+          correct: false,
+        },
+        {
+          text: "Sabeer Bhatiya",
+          correct: false,
+        },
+        {
+          text: "Google Inc",
+          correct: false,
+        },
+        {
+          text: "Tim Berners-Lee",
           correct: true,
         },
-        {
-          text: "2005",
-          correct: false,
-        },
-        {
-          text: "2006",
-          correct: false,
-        },
-        {
-          text: "2007",
-          correct: false,
-        },
-      ],
+      ]),
     },
     {
       id: 3,
-      question: "Who played the character of harry potter in movie?",
-      answers: [
+      question: "What is mean by DTD ?",
+      answers: shuffleArray([
         {
-          text: "Johnny Deep",
+          text: "Document type data",
           correct: false,
         },
         {
-          text: "Leonardo Di Caprio",
+          text: "Data type definition",
           correct: false,
         },
         {
-          text: "Denzel Washington",
+          text: "Definition type document",
           correct: false,
         },
         {
-          text: "Daniel Red Cliff",
+          text: " Document type definition",
           correct: true,
         },
-      ],
+      ]),
     },
     {
       id: 4,
-      question: "How Would you consult to know your Horoscope?",
-      answers: [
+      question: "What is the Virtual DOM in React used for?",
+      answers: shuffleArray([
         {
-          text: "Astronomist",
+          text: "Storing user authentication data",
           correct: false,
         },
         {
-          text: "Astrologer",
+          text: "Efficiently updating and rendering components",
           correct: true,
         },
         {
-          text: "Economist",
+          text: "Managing server-side rendering",
           correct: false,
         },
         {
-          text: "Agronomist",
+          text: "Handling API requests",
           correct: false,
         },
-      ],
+      ]),
     },
     {
       id: 5,
-      question: "Which of these associated to White Revolution?",
-      answers: [
+      question: "In CSS, what is the default value of the position property?",
+      answers: shuffleArray([
         {
-          text: "Milk",
+          text: "static ",
           correct: true,
         },
         {
-          text: "Chicken",
+          text: "relative",
           correct: false,
         },
         {
-          text: "Petrol",
+          text: "fixed",
           correct: false,
         },
         {
-          text: "Diesel",
+          text: "absolute",
           correct: false,
         },
-      ],
+      ]),
     },
     {
       id: 6,
-      question: "Which of these following missiles is made by together India and Russia?",
-      answers: [
+      question: "What does the CSS property transform: scale(2) do?",
+      answers: shuffleArray([
         {
-          text: "Agni",
+          text: "Rotates the element by 2 degrees",
           correct: false,
         },
         {
-          text: "Prudhvi",
+          text: "Skews the element horizontally",
           correct: false,
         },
         {
-          text: "Brahmas",
+          text: " Scales the element to twice its size ",
           correct: true,
         },
         {
-          text: "Akash",
+          text: "Translates the element by 2 pixels",
           correct: false,
         },
-      ],
+      ]),
     },
     {
       id: 7,
-      question: "Which of the following is given given Ink mark during elections?",
-      answers: [
+      question: "What is the purpose of the CSS counter-reset property?",
+      answers: shuffleArray([
         {
-          text: "To Eye",
+          text: " Resets the position of a counter",
           correct: false,
         },
         {
-          text: "To Ear",
+          text: "Sets the initial value of a counter",
           correct: false,
         },
         {
-          text: "To Nose",
+          text: "Removes a counter from the document",
           correct: false,
         },
         {
-          text: "To Finger",
+          text: "Resets the count of a counter",
           correct: true,
         },
-      ],
+      ]),
     },
     {
       id: 8,
-      question: "On which of the following days Easter is celebrated?",
-      answers: [
+      question: "Which of the following is a server-side Java Script object?",
+      answers: shuffleArray([
         {
-          text: "Friday",
+          text: "Function ",
           correct: false,
         },
         {
-          text: "Saturday",
+          text: "FileUpload",
           correct: false,
         },
         {
-          text: "Sunday",
+          text: "File ",
           correct: true,
         },
         {
-          text: "Monday",
+          text: "Date",
           correct: false,
         },
-      ],
+      ]),
     },
     {
       id: 9,
-      question: "Yanam is the colony of the which of the European powers?",
-      answers: [
+      question: "What language defines the behavior of a web page?",
+      answers: shuffleArray([
         {
-          text: "Danish",
+          text: "HTML",
           correct: false,
         },
         {
-          text: "French",
+          text: "Java Script",
           correct: true,
         },
         {
-          text: "Spanish",
+          text: "CSS",
           correct: false,
         },
         {
-          text: "Portugese",
+          text: "XML",
           correct: false,
         },
-      ],
+      ]),
     },
     {
       id: 10,
-      question: "Which is the 4th planet from the sun in our Solar system?",
-      answers: [
+      question: "What is the alternate name for Java script?",
+      answers: shuffleArray([
         {
-          text: "Mercury",
+          text: "LimeScript",
           correct: false,
         },
         {
-          text: "Mars",
+          text: "ECMAScript ",
           correct: true,
         },
         {
-          text: "Jupiter",
+          text: "Both a and d",
           correct: false,
         },
         {
-          text: "Earth",
+          text: "ECMScript",
           correct: false,
         },
-      ],
+      ]),
     },
     {
       id: 11,
-      question: "Samosas are usually made in which of the following shapes?",
-      answers: [
+      question: "Java Script entities start with ____________ and end with ______________",
+      answers: shuffleArray([
         {
-          text: "Triangle",
+          text: "Ampersand, semicolon",
           correct: true,
         },
         {
-          text: "Rectangle",
+          text: "Ampersand, colon",
           correct: false,
         },
         {
-          text: "Square",
+          text: "Semicolon, Ampersand",
           correct: false,
         },
         {
-          text: "Circle",
+          text: "Semicolon, colon",
           correct: false,
         },
-      ],
+      ]),
     },
     {
       id: 12,
-      question: "The Human Heart Comprises of how many Chambers?",
-      answers: [
+      question: "What does SQL stand for?",
+      answers: shuffleArray([
         {
-          text: "2",
+          text: "Standard Query Language",
           correct: false,
         },
         {
-          text: "5",
+          text: "Structured Question Language ",
           correct: false,
         },
         {
-          text: "4",
+          text: "Structured Query Language ",
           correct: true,
         },
         {
-          text: "3",
+          text: "System Query Language",
           correct: false,
         },
-      ],
-    },{
+      ]),
+    },
+    {
       id: 13,
-      question: "Which of these following Mueseum is located in Hyderabad?",
-      answers: [
+      question: "Which SQL command is used to remove data from a table?",
+      answers: shuffleArray([
         {
-          text: "Victoria jublee Mueseum",
+          text: "REMOVE",
           correct: false,
         },
         {
-          text: "National Mueseum",
+          text: "DROP",
           correct: false,
         },
         {
-          text: "Indian Mueseum",
+          text: " ERASE ",
           correct: false,
         },
         {
-          text: "Salarjung Mueseum",
+          text: "DELETE",
           correct: true,
         },
-      ],
+      ]),
     },
     {
       id: 14,
-      question: "Which of these was Invented by Johannes Gutenberg?",
-      answers: [
+      question: "What does the term NULL represent in SQL?",
+      answers: shuffleArray([
         {
-          text: "Refrigerator",
+          text: "A specific value",
           correct: false,
         },
         {
-          text: "Telephone",
+          text: "An error in the query",
           correct: false,
         },
         {
-          text: "Printing Press",
+          text: "No value or undefined ",
           correct: true,
         },
         {
-          text: "World Wide Web",
+          text: "A placeholder for future data",
           correct: false,
         },
-      ],
+      ]),
     },
     {
       id: 15,
-      question: "The ISRO Space centre in sriharikota is named after which of these Scientists?",
-      answers: [
+      question: "What is ReactJS primarily used for?",
+      answers: shuffleArray([
         {
-          text: "Abdul kalam",
+          text: "Server-side scripting",
           correct: false,
         },
         {
-          text: "Vikram Sarabhai",
+          text: "Graphic design",
           correct: false,
         },
         {
-          text: "Homi J Baba",
+          text: " Database management",
           correct: false,
         },
         {
-          text: "Satish Dhawan",
+          text: "Building user interfaces  ",
           correct: true,
         },
-      ],
+      ]),
     },
-  ];
+  ], []);
 
   const moneyPyramid = useMemo(
     () =>
@@ -405,6 +415,7 @@ function App() {
             <ul className="moneyList">
               {moneyPyramid.map((m) => (
                 <li
+                  key={m.id} // Add a unique key
                   className={
                     questionNumber === m.id
                       ? "moneyListItem active"
@@ -423,5 +434,4 @@ function App() {
   );
 }
 
-export default App
-
+export default App;
